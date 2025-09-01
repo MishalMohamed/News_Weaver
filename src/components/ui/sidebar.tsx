@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
@@ -179,6 +179,10 @@ const Sidebar = React.forwardRef<
   ) => {
     const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
     const Comp = asChild ? Slot : 'div';
+    
+    const sidebarHeader = React.Children.toArray(children).find(
+      (child) => React.isValidElement(child) && child.type === SidebarHeader
+    );
 
     if (collapsible === "none") {
       return (
@@ -196,6 +200,12 @@ const Sidebar = React.forwardRef<
     }
 
     if (isMobile) {
+      const headerTitle = React.Children.toArray(
+        (sidebarHeader as React.ReactElement)?.props.children
+      ).find(
+        (child) => React.isValidElement(child) && child.type === 'h1'
+      );
+      
       return (
         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
           <SheetContent
@@ -209,6 +219,9 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
+            <SheetTitle className="sr-only">
+              {(headerTitle as React.ReactElement)?.props.children || "Sidebar"}
+            </SheetTitle>
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
         </Sheet>
