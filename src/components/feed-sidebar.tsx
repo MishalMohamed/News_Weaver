@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -149,7 +150,7 @@ export function FeedSidebar({
         )}
         {isLoaded && (
             <SidebarMenu className="p-2">
-                <SidebarMenuItem>
+                <SidebarMenuItem className="group-data-[collapsible=icon]:-ml-1.5">
                     <SidebarMenuButton
                         onClick={() => onSelectFeed('favorites')}
                         isActive={selectedFeed === 'favorites'}
