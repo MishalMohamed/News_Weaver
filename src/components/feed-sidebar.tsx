@@ -94,9 +94,10 @@ export function FeedSidebar({
             onClick={() => onSelectFeed(feed)}
             isActive={typeof selectedFeed === 'object' && selectedFeed?.id === feed.id}
             tooltip={feed.name}
+            className="group-data-[collapsible=icon]:justify-center"
         >
             <Rss />
-            <span>{feed.name}</span>
+            <span className="group-data-[collapsible=icon]:hidden">{feed.name}</span>
         </SidebarMenuButton>
         <div className="absolute right-2 top-1/2 -translate-y-1/2 group-data-[collapsible=icon]:hidden">
             <DropdownMenu>
@@ -153,6 +154,7 @@ export function FeedSidebar({
                         onClick={() => onSelectFeed('favorites')}
                         isActive={selectedFeed === 'favorites'}
                         tooltip="Favorites"
+                        className="group-data-[collapsible=icon]:justify-center"
                     >
                         <Star />
                         <span className="group-data-[collapsible=icon]:hidden">Favorites</span>
@@ -165,14 +167,14 @@ export function FeedSidebar({
             <Accordion type="multiple" defaultValue={['Uncategorized', ...defaultActiveCategories]} className="w-full">
                 {Object.entries(groupedFeeds).map(([category, categoryFeeds]) => (
                     <AccordionItem value={category} key={category} className="border-none group/accordion">
-                        <AccordionTrigger className="px-2 py-1.5 text-sm font-medium hover:bg-sidebar-accent rounded-md [&[data-state=open]>svg]:rotate-90 group-data-[collapsible=icon]:hidden">
+                        <AccordionTrigger className="px-2 py-1.5 text-sm font-medium hover:bg-sidebar-accent rounded-md [&[data-state=open]>svg]:rotate-90 group-data-[collapsible=icon]:justify-center">
                            <div className="flex items-center gap-2">
                              <Folder className="h-4 w-4" />
                              <span className="group-data-[collapsible=icon]:hidden">{category}</span>
                            </div>
                         </AccordionTrigger>
-                        <AccordionContent className="pt-1 group-data-[collapsible=icon]:hidden">
-                            <SidebarMenu className="ml-4 border-l pl-2">
+                        <AccordionContent className="pt-1">
+                            <SidebarMenu className="ml-4 border-l pl-2 group-data-[collapsible=icon]:ml-0 group-data-[collapsible=icon]:border-l-0 group-data-[collapsible=icon]:pl-0">
                                 {categoryFeeds.map(renderFeedItem)}
                             </SidebarMenu>
                         </AccordionContent>
